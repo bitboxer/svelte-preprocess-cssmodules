@@ -1,5 +1,9 @@
 # Svelte preprocess CSS Modules
 
+> **Note:** This is a fork of [svelte-preprocess-cssmodules](https://github.com/micantoine/svelte-preprocess-cssmodules) by micantoine.
+> It fixes a bug in native mode where class selectors inside `@media` (and other at-rules) were silently skipped when a `@keyframes` rule was also present in the same `<style module>` block, causing those selectors to not be hashed or wrapped in `:global()`.
+> Install this fork as `bitboxer-svelte-preprocess-cssmodules`.
+
 Generate CSS Modules classnames on Svelte components
 
 ```bash
@@ -75,6 +79,7 @@ The default svelte scoping appends every css selectors with a unique class to on
   .red { color: red; }
 </style>
 ```
+
 ```html
 <!-- Component B -->
 <p class="text">lorem ipsum tut moue</p>
@@ -128,7 +133,7 @@ _transformed to_
 </style>
 ```
 
-*generating*
+_generating_
 
 ```html
 <div class="active-aft3ew bold-sfkje6">...</div>
@@ -159,7 +164,7 @@ _transformed to_
 </style>
 ```
 
-*generating*
+_generating_
 
 ```html
 <div class="green-dhy6wu bold-uytsge italic-b65wfq">...</div>
@@ -247,6 +252,7 @@ Force a selector to be scoped within its component to prevent style inheritance 
   <ChildComponent />
 </div>
 ```
+
 ```html
 <!-- Child Component-->
 
@@ -263,7 +269,7 @@ Force a selector to be scoped within its component to prevent style inheritance 
 <p class="child">My <em>secondary</em> lorem <strong>ipsum tuye</strong></p>
 ```
 
-*generating*
+_generating_
 
 ```html
 <!-- Parent Component-->
@@ -278,6 +284,7 @@ Force a selector to be scoped within its component to prevent style inheritance 
   <ChildComponent />
 </div>
 ```
+
 ```html
 <!-- Child Component-->
 
@@ -307,7 +314,7 @@ When used with a class, `:local()` cssModules is replaced by the svelte scoping 
 </div>
 ```
 
-*generating*
+_generating_
 
 ```html
 <style>
@@ -487,7 +494,6 @@ _generating_
 </style>
 ```
 
-
 ## Import styles from an external stylesheet
 
 Alternatively, styles can be created into an external file and imported onto a svelte component. The name referring to the import can then be used on the markup to target any existing classname of the stylesheet.
@@ -495,13 +501,14 @@ Alternatively, styles can be created into an external file and imported onto a s
 - The option `parseExternalStylesheet` need to be enabled.
 - The css file must follow the convention `[FILENAME].module.css` in order to be processed.
 
-**Note:** *That import is only meant for stylesheets relative to the component. You will have to set your own bundler in order to import *node_modules* css files.*
+**Note:** _That import is only meant for stylesheets relative to the component. You will have to set your own bundler in order to import _node_modules_ css files._
 
 ```css
 /** style.module.css **/
 .red { color: red; }
 .blue { color: blue; }
 ```
+
 ```html
 <!-- Svelte component -->
 <script>
@@ -512,7 +519,7 @@ Alternatively, styles can be created into an external file and imported onto a s
 <p class={style.blue}>My blue text</p>
 ```
 
-*generating*
+_generating_
 
 ```html
 <style>
@@ -533,6 +540,7 @@ section { padding: 10px; }
 .blue { color: blue; }
 .bold { font-weight: bold; }
 ```
+
 ```html
 <!-- Svelte component -->
 <script>
@@ -545,7 +553,7 @@ section { padding: 10px; }
 </section>
 ```
 
-*generating*
+_generating_
 
 ```html
 <style>
@@ -573,6 +581,7 @@ The kebab-case class names are being transformed to a camelCase version to facil
   text-decoration: line-through;
 }
 ```
+
 ```html
 <script>
   import css from './style.module.css';
@@ -591,7 +600,7 @@ The kebab-case class names are being transformed to a camelCase version to facil
 <p class={errorMessage}>My error message</p>
 ```
 
-*generating*
+_generating_
 
 ```html
 <style>
@@ -615,6 +624,7 @@ If a css file is being imported without a name, CSS Modules will still apply to 
 p { font-size: 18px; }
 .success { color: green; }
 ```
+
 ```html
 <script>
   import './style.module.css'
@@ -624,7 +634,7 @@ p { font-size: 18px; }
 <p>My another message</p>
 ```
 
-*generating*
+_generating_
 
 ```html
 <style>
@@ -639,7 +649,7 @@ p { font-size: 18px; }
 ### Directive and Dynamic class
 
 Use the Svelte's builtin `class:` directive or javascript template to display a class dynamically.  
-**Note**: the *shorthand directive* is **NOT working** with imported CSS Module identifiers.
+**Note**: the _shorthand directive_ is **NOT working** with imported CSS Module identifiers.
 
 ```html
 <script>
@@ -859,8 +869,8 @@ module.exports = {
 
 ### SvelteKit
 
-As the module distribution is targetting `esnext`, `Node.js 14` or above is required 
-in order to work. 
+As the module distribution is targetting `esnext`, `Node.js 14` or above is required
+in order to work.
 
 ```js
 // svelte.config.js
@@ -911,8 +921,8 @@ export default {
 };
 ```
 
-
 ### Options
+
 Pass an object of the following properties
 
 | Name | Type | Default | Description |
@@ -952,8 +962,7 @@ function getLocalIdent(
 }
 ```
 
-
-*Example of use*
+_Example of use_
 
 ```bash
 # Directory
@@ -963,6 +972,7 @@ SvelteApp
    └─ components
       └─ Button.svelte
 ```
+
 ```html
 <!-- Button.svelte -->
 <button class="red">Ok</button>
@@ -994,10 +1004,11 @@ Set the source of the hash (when using `[hash]` / `[contenthash]`).
 The list of available keys are:
 
 - `style` the content of the style tag (or the imported stylesheet)
-- `filepath` the path of the component 
+- `filepath` the path of the component
 - `classname` the local classname
 
-*Example of use: creating a common hash per component*
+_Example of use: creating a common hash per component_
+
 ```js
 // Preprocess config
 ...
@@ -1008,6 +1019,7 @@ preprocess: [
 ],
 ...
 ```
+
 ```html
 <button class="success">Ok</button>
 <button class="cancel">Cancel</button>
@@ -1042,6 +1054,7 @@ preprocess: [
 ],
 ...
 ```
+
 ```html
 <button class="red" data-color="red">Red</button>
 <button class="red" classname="blue">Red or Blue</button>
@@ -1071,7 +1084,7 @@ Inspired by [webpack interpolateName](https://github.com/webpack/loader-utils#in
 - `[name]` the basename of the resource
 - `[path]` the path of the resource
 - `[folder]` the folder the resource is in
-- `[contenthash]` or `[hash]` *(they are the same)* the hash of the resource content (by default it's the hex digest of the md5 hash)
+- `[contenthash]` or `[hash]` _(they are the same)_ the hash of the resource content (by default it's the hex digest of the md5 hash)
 - `[<hashType>:contenthash:<digestType>:<length>]` optionally one can configure
   - other hashTypes, i. e. `sha1`, `md5`, `sha256`, `sha512`
   - other digestTypes, i. e. `hex`, `base26`, `base32`, `base36`, `base49`, `base52`, `base58`, `base62`, `base64`
@@ -1080,7 +1093,6 @@ Inspired by [webpack interpolateName](https://github.com/webpack/loader-utils#in
 #### `useAsDefaultScoping`
 
 Globally replace the default svelte scoping by the CSS Modules scoping. As a result, the `module` attribute to `<style>` becomes unnecessary.
-
 
 ```js
 // Preprocess config
@@ -1109,7 +1121,7 @@ _generating_
 </style>
 ```
 
-**Potential issue with third party plugins**   
+**Potential issue with third party plugins**
 
 The preprocessor requires you to add the `module` attribute to `<style>` in order to apply CSS Modules to a component. When enabling `useAsDefaultScoping` the `module` attribute is not required anymore and CSS Modules will apply to all svelte components of your application, including plugins. If a third party component is relying on svelte scoping and non class selectors, its styling will apply globally and may cause unexpected results.
 
@@ -1129,7 +1141,7 @@ preprocess: [
 
 ## Code Example
 
-*Rollup Config*
+_Rollup Config_
 
 ```js
 export default {
@@ -1148,7 +1160,7 @@ export default {
 }
 ```
 
-*Svelte Component*
+_Svelte Component_
 
 ```html
 <style module>
@@ -1181,7 +1193,7 @@ export default {
 </section>
 ```
 
-*Final html code generated by svelte*
+_Final html code generated by svelte_
 
 ```html
 <style>
@@ -1213,6 +1225,7 @@ export default {
   </footer>
 </section>
 ```
+
 ## License
 
 [MIT](https://opensource.org/licenses/MIT)

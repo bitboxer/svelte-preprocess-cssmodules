@@ -1,5 +1,5 @@
 {
-  "name": "svelte-preprocess-cssmodules",
+  "name": "bitboxer-svelte-preprocess-cssmodules",
   "version": "3.0.1",
   "description": "Svelte preprocessor to generate CSS Modules classname on Svelte components",
   "keywords": [
@@ -7,12 +7,12 @@
     "svelte-preprocess",
     "css-modules"
   ],
-  "homepage": "https://github.com/micantoine/svelte-preprocess-cssmodules",
+  "homepage": "https://github.com/bitboxer/svelte-preprocess-cssmodules",
   "bugs": {
-    "url": "https://github.com/micantoine/svelte-preprocess-cssmodules/issues"
+    "url": "https://github.com/bitboxer/svelte-preprocess-cssmodules/issues"
   },
   "author": {
-    "name": "micantoine"
+    "name": "bitboxer"
   },
   "scripts": {
     "prebuild": "rm -rf dist/",
@@ -40,7 +40,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/micantoine/svelte-preprocess-cssmodules.git"
+    "url": "https://github.com/bitboxer/svelte-preprocess-cssmodules.git"
   },
   "husky": {
     "hooks": {
