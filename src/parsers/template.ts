@@ -142,7 +142,7 @@ const addDynamicVariablesToElements = (
       const attributesLength = childNode.attributes.length;
       if (attributesLength) {
         const styleAttr = childNode.attributes.find(
-          (attr) => attr.type !== 'SpreadAttribute' && attr.name === 'style'
+          (attr) => attr.type !== 'SpreadAttribute' && attr.type !== 'AttachTag' && attr.name === 'style'
         ) as AST.Attribute;
         if (styleAttr && Array.isArray(styleAttr.value)) {
           processor.magicContent.appendLeft(styleAttr.value[0].start, cssVar.values);
